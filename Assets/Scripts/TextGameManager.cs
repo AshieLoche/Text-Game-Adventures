@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class TextGameManager : MonoBehaviour
 {
     public TextMeshProUGUI storyTextMeshPro, hpTextMeshPro, staminaTextMeshPro;
     public string storyText;
     public int hpValue, staminaValue;
-    public GameObject level1_Choices, level1_Continue;
+    public GameObject startScreenPanel, startScreenChoices, level1_Choices, level1_Continue;
 
     // Start is called before the first frame update
     void Start()
     {
-        level1_Continue.SetActive(false);
+        startScreenPanel.SetActive(true);
     }
 
     // Update is called once per frame
@@ -22,6 +23,16 @@ public class TextGameManager : MonoBehaviour
         storyTextMeshPro.text = storyText;
         hpTextMeshPro.text = hpValue.ToString();
         staminaTextMeshPro.text = staminaValue.ToString();
+    }
+
+    public void ExitButton()
+    {
+        Application.Quit();
+    }
+
+    public void StartButton()
+    {
+        startScreenPanel.SetActive(false);
     }
 
     public void l1C1_PerceiveIt()
@@ -54,12 +65,12 @@ public class TextGameManager : MonoBehaviour
     public void L1C1_MoveIt()
     {
         storyText = "You tried pushing it off you but you hands just go through air. The weight press on you harder.";
-        if (staminaValue > 0)
+        if (staminaValue == 0)
             storyText = "NO MORE STAMINA!!! \n\nYou tried pushing it off you but you hands just go through air. The weight press on you harder.";
         else
         {
             staminaValue -= 1;
-            storyText = "NO MORE STAMINA!!! \n\nYou tried pushing it off you but you hands just go through air. The weight press on you harder.";
+            storyText = "You tried pushing it off you but you hands just go through air. The weight press on you harder.";
         }
 
         if(hpValue == 0)
